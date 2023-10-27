@@ -1,16 +1,49 @@
-import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  GestureResponderEvent,
+} from "react-native";
 import React from "react";
 import { TouchableHighlight } from "react-native";
 import Video from "react-native-video";
 import { Dimensions } from "react-native";
 import Fa5Icon from "react-native-vector-icons/FontAwesome5";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { ParamListBase } from "@react-navigation/native";
 const emissions = [
-  { text: "KID/JEUNES" },
-  { text: "DIVERTISSEMENT" },
-  { text: "SOCIETE" },
-  { text: "KID/JEUNES" },
-  { text: "SOCIETE" },
-  { text: "DIVERTISSEMENT" },
+  {
+    text: "KID/JEUNES",
+    playlistUrl:
+      "https://www.youtube.com/playlist?list=PLIl2EzNYri0clPh69L4z-vqOkfR7AK-To",
+  },
+  {
+    text: "DIVERTISSEMENT",
+    playlistUrl:
+      "https://www.youtube.com/playlist?list=PLIl2EzNYri0clPh69L4z-vqOkfR7AK-To",
+  },
+  {
+    text: "SOCIETE",
+    playlistUrl:
+      "https://www.youtube.com/playlist?list=PLIl2EzNYri0clPh69L4z-vqOkfR7AK-To",
+  },
+  {
+    text: "KID/JEUNES",
+    playlistUrl:
+      "https://www.youtube.com/playlist?list=PLIl2EzNYri0clPh69L4z-vqOkfR7AK-To",
+  },
+  {
+    text: "SOCIETE",
+    playlistUrl:
+      "https://www.youtube.com/playlist?list=PLIl2EzNYri0clPh69L4z-vqOkfR7AK-To",
+  },
+  {
+    text: "DIVERTISSEMENT",
+    playlistUrl:
+      "https://www.youtube.com/playlist?list=PLIl2EzNYri0clPh69L4z-vqOkfR7AK-To",
+  },
 ];
 
 const programmes = [
@@ -67,19 +100,37 @@ const bouquets = [
 ];
 
 const maxWidth = Dimensions.get("screen").width - 20;
-const Home = () => {
+
+type Props = {
+  navigation: DrawerNavigationProp<ParamListBase, string, undefined>;
+};
+
+const Home = ({ navigation }: Props) => {
+  const handleCategoriePress = (
+    e: GestureResponderEvent,
+    element: (typeof emissions)[0]
+  ) => {
+    navigation.navigate("emissions", {
+      playlistUrl: element.playlistUrl,
+    });
+  };
   return (
     <ScrollView>
       <View>
         <Video
-          source={{ uri: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" }} // the video file
-          paused={false} 
+          source={{
+            uri: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
+          }} // the video file
+          // source={{ uri: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" }} // the video file
+          paused={true}
+          controls
           style={{
             width: maxWidth,
             marginHorizontal: 10,
-            height : 250
-          }} 
-          repeat={true} 
+            height: 250,
+          }}
+          resizeMode="cover"
+          // repeat={true}
         />
         <TouchableHighlight underlayColor={"rgba(0,0,0,0)"} activeOpacity={0.9}>
           <View
@@ -93,7 +144,9 @@ const Home = () => {
             }}
           >
             <Fa5Icon name="redo-alt" color="white" size={18} />
-            <Text style = {{...Section1Styles.whiteText}}>Rafraichir la Tv</Text>
+            <Text style={{ ...Section1Styles.whiteText }}>
+              Rafraichir la Tv
+            </Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -109,6 +162,7 @@ const Home = () => {
                 style={Section1Styles.emissionCards}
                 underlayColor={"rgba(0,0,0,0.2)"}
                 activeOpacity={0.2}
+                onPress={(event) => handleCategoriePress(event, e)}
               >
                 <Text style={{ ...Section1Styles.whiteText }}>{e.text}</Text>
               </TouchableHighlight>

@@ -14,12 +14,12 @@ const Emission = ({ route, navigation }: Props) => {
   const { playlistUrl } = route.params;
   console.log(playlistUrl);
   return (
-    // <ScrollView>
+    <ScrollView>
       <WebView
         source={{ html : "<div>Yoo</div>" }}
         style={{ flex: 1 }}
       />
-    // </ScrollView>
+    </ScrollView>
   );
 };
 

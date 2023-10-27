@@ -28,7 +28,7 @@ const NavBar = ({ layout, navigation, options, route }: Props) => {
       >
         <Fa5Icon name="bars" size={25} color="white" />
       </TouchableHighlight>
-      <Text style={styles.title}>WEB TV</Text>
+      <Text style={styles.title}>CHRIST TV</Text>
       <Fa5Icon name="share-alt" size={25} color="white" />
       {/* <Fa5Icon name="" size={20} /> */}
     </View>
